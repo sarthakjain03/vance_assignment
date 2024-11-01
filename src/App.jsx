@@ -1,12 +1,19 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import LandingPage from './pages/LandingPage';
+import Dashboard from './pages/Dashboard';
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
-      <h1>Hello there</h1>
+      <Router>
+        <Routes>
+          <Route exact path='/' element={<LandingPage />} />
+          <Route exact path='/home' element={<Dashboard />} />
+        </Routes>
+      </Router>
     </>
   )
 }
