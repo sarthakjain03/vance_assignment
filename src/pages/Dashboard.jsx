@@ -1,19 +1,44 @@
-import React from 'react'
-import Navbar from '../layout/Navbar'
+import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material"
+import AlertCard from "../components/AlertCard"
 
 const Dashboard = () => {
   return (
-    <div className='bg-black min-h-screen'>
-        <Navbar />
-        <div className='flex justify-center items-center relative'>
-            <div className='h-[444px] w-[444px] rounded-full blur-2xl opacity-75 absolute' style={{ background: 'radial-gradient(50% 50% at 50% 50%, #4602D9 0%, #111111 100%)' }}></div>
-            <div className='flex justify-center items-center flex-col mt-20 gap-12 relative z-10'>
-                <img alt='megaphone' src='/megaphone.svg' />
-                <p className='text-4xl font-bold text-center text-white'>
-                    Access
-                    <br />
-                    rate alert dashboard
+    <div className="bg-black py-12 flex justify-center items-center">
+        <div className="w-2/5 flex justify-center items-center flex-col gap-24">
+            <div className="flex justify-center items-center gap-12">
+                <p className="text-white text-4xl text-center">
+                    Rate alert dashboard
                 </p>
+            </div>
+            <div className="flex flex-col justify-center items-center gap-12 w-full">
+                <div className="flex justify-between items-center w-full">
+                    <p className="text-white text-lg font-bold opacity-75">
+                        Previous alerts
+                    </p>
+                    <div className="flex justify-center items-center gap-2">
+                        <button>
+                            <KeyboardArrowLeft sx={{ color: 'white' }} />
+                        </button>
+                        <button className="py-3 px-4 bg-[#7265EE] font-semibold text-xs text-white rounded-lg">
+                            1
+                        </button>
+                        <button className="py-3 px-4 hover:bg-[#7265EE] font-semibold text-xs text-white rounded-lg">
+                            2
+                        </button>
+                        <button className="py-3 px-4 font-semibold text-xs text-white rounded-lg">
+                            ...
+                        </button>
+                        <button className="py-3 px-4 hover:bg-[#7265EE] font-semibold text-xs text-white rounded-lg">
+                            10
+                        </button>
+                        <button>
+                            <KeyboardArrowRight sx={{ color: 'white' }} />
+                        </button>
+                    </div>
+                </div>
+                <div className="flex flex-col w-full">
+                    <AlertCard name="Name" rate={84} date={""} code="E(GBP)" country="UK" flag={"/uk.svg"} />
+                </div>
             </div>
         </div>
     </div>
