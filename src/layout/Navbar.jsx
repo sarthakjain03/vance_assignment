@@ -11,7 +11,6 @@ const Navbar = () => {
                     <ArrowDownwardRounded fontSize='10' sx={{ color: '#81EBAB', fontWeight: 600 }} />
                 </div>
             </button>
-            
         </div>
     </div>
   )
