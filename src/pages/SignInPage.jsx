@@ -1,7 +1,26 @@
+import { useEffect } from "react"
+import { useAuth } from "../contexts/AuthContext.jsx"
+import { useNavigate } from "react-router-dom";
 
 const SignInPage = () => {
+  const { signin, user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignin = async () => {
+    try {
+      await signin();
+      navigate("/dashboard");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  useEffect(() => {
+    if(user) navigate("/dashboard");
+  }, [user])
+
   return (
-    <div className='bg-black'>
+    <div className='bg-black min-h-screen'>
         <div className='flex justify-center items-center relative py-20'>
             <div className='h-[444px] w-[444px] rounded-full blur-2xl opacity-75 absolute -top-5' style={{ background: 'radial-gradient(50% 50% at 50% 50%, #4602D9 0%, #111111 100%)' }}></div>
             <div className='flex justify-center items-center flex-col gap-12 relative z-10'>
@@ -16,7 +35,7 @@ const SignInPage = () => {
                     Stay updated with real-time currency rates and manage your alerts.
                   </p>
                 </div>
-                <button className='bg-[#333333] rounded-full w-full flex justify-center items-center py-4 text-white gap-3'>
+                <button className='bg-[#333333] rounded-full w-full flex justify-center items-center py-4 text-white gap-3' onClick={handleSignin}>
                   <img src='/Google.svg' width={20} height={20} alt='google_logo' />
                   <p className='font-semibold leading-5'>
                     Sign in with Google

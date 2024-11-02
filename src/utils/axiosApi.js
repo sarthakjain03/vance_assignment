@@ -1,15 +1,11 @@
 import axios from 'axios';
 
-//const axiosInstance = axios.create({ baseURL: 'https://lessonlinkbackendv2.onrender.com' });
-const axiosInstance = axios.create({ baseURL: 'http://localhost:5173' });
+const axiosInstance = axios.create({ baseURL: 'https://web-api.vance.club/public/api' });
 
 
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-//        if (error.response.status === 401 && !window.location.href.includes('/login')) {
-//            window.location = '/login';
-//        }
         return Promise.reject((error.response && error.response.data) || 'Wrong Services');
     }
 );
@@ -75,65 +71,5 @@ export const fetcherPost = async (url, { body = {}} = {}) => {
             throw new Error('Error fetching data (from utils/axiosInstance):', error);
         }
         
-    }
-};
-
-
-export const fetcherPut = async (url, { token = '', body = {}} = {}) => {
-    try {
-        const res = await axiosInstance.put(
-            url,
-            {
-                ...body
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: token
-                }
-            }
-        );
-        if (res.status !== 200) {
-            throw new Error('Error fetching data (from utils/axiosInstance), Status Text: ' + res.statusText);
-        }
-        return res.data;
-    } catch (error) {
-        if (error.msg) {
-            // Throw the error response so it can be handled in the calling function
-            throw error.msg;
-        } else {
-            // Throw a generic error if there's no response
-            throw new Error('Error fetching data (from utils/axiosInstance):', error);
-        }
-    }
-};
-
-export const fetcherDelete = async (url, { token = '', body = {}} = {}) => {
-    try {
-        console.log(body);
-        const res = await axiosInstance.post(
-            url,
-            {
-                ...body
-            },
-            {
-                headers: {
-                    'Content-Type': 'application/json',
-                    authorization: token
-                }
-            }
-        );
-        if (res.status !== 200) {
-            throw new Error('Error fetching data (from utils/axiosInstance), Status Text: ' + res.statusText);
-        }
-        return res.data;
-    } catch (error) {
-        if (error.msg) {
-            // Throw the error response so it can be handled in the calling function
-            throw error.msg;
-        } else {
-            // Throw a generic error if there's no response
-            throw new Error('Error fetching data (from utils/axiosInstance):', error);
-        }
     }
 };
