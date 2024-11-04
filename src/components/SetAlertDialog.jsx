@@ -1,8 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import { Dialog, TextField, DialogContent } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { firestore } from "../utils/firebaseConfig";
+import { formatDate } from "../utils/dateFormatter";
+import { arrayUnion, doc, updateDoc } from "firebase/firestore";
 
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
@@ -31,6 +34,8 @@ const CustomTextField = styled(TextField)({
 });
 
 const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry }) => {
+  const [submitting, setSubmitting] = useState(false);
+
   const formik = useFormik({
     initialValues: {
       title: "",
@@ -38,8 +43,28 @@ const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry }) => {
     },
     validationSchema: yup.object({
       title: yup.string().required("Required"),
-      alertValue: yup.number().required("Required"),
+      alertValue: yup.number().required("Required").typeError("Please enter a valid number"),
     }),
+    onSubmit: async (values) => {
+      setSubmitting(true);
+      const data = {
+        title: values.title,
+        rateValue: Number(values.alertValue),
+        setDate: formatDate(new Date().toDateString()),
+        country: selectedCountry?.name,
+      };
+      try {
+        const docRef = doc(firestore, "users", userID);
+        await updateDoc(docRef, {
+          alerts: arrayUnion(data)
+        });
+        onClose();
+        alert("Rate alert set successfully!");
+      } catch (error) {
+        console.error("Error saving data:", error);
+      }
+      setSubmitting(false);
+    },
   });
 
   return (
@@ -105,6 +130,7 @@ const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry }) => {
                   type="submit"
                   className="bg-primary px-5 py-3 flex justify-center items-center gap-2 rounded-full text-[#0B0B0B] w-full"
                   onClick={() => {}}
+                  disabled={submitting}
                 >
                   <p className="font-semibold">Set Alert</p>
                   <div
@@ -114,12 +140,13 @@ const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry }) => {
                     +
                   </div>
                 </button>
-                <p
-                  className="cursor-pointer font-semibold text-sm text-white/50"
+                <button
                   onClick={onClose}
+                  disabled={submitting}
+                  className="font-semibold text-sm text-white/50"
                 >
                   Cancel
-                </p>
+                </button>
               </div>
             </div>
           </form>
