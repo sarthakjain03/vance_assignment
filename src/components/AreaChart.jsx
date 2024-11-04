@@ -53,6 +53,7 @@ function AreaChart({
     setOptions((prevState) => ({
       ...prevState,
       yaxis: {
+        tickAmount: 5,
         labels: {
           show: showYaxisLabels,
           style: {
@@ -74,6 +75,7 @@ function AreaChart({
       },
       xaxis: {
         categories: xaxisLabels,
+        tickAmount: 10,
         labels: {
           formatter: (value) => {
             return value;
