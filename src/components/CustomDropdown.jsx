@@ -14,8 +14,8 @@ const StyledMenu = styled((props) => <Menu elevation={0} {...props} />)(
   ({ theme }) => ({
     "& .MuiPaper-root": {
       borderRadius: 0,
-      backgroundColor: '#393939',
-    //   marginTop: theme.spacing(1),
+      backgroundColor: "#393939",
+      //   marginTop: theme.spacing(1),
       minWidth: 163,
       color: "rgb(55, 65, 81)",
       boxShadow:
@@ -43,43 +43,20 @@ const StyledMenu = styled((props) => <Menu elevation={0} {...props} />)(
   })
 );
 
-export default function CustomDropdown() {
+export default function CustomDropdown({ options, selectedCountry, setSelectedCountry }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const [selected, setSelected] = useState(0);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleClose = (index) => {
-    if(index > -1){
-        setSelected(index);
+  const handleClose = (selectedOption) => {
+    if(selectedOption !== -1 && selectedOption !== selectedCountry){
+      setSelectedCountry(selectedOption);
     }
     setAnchorEl(null);
   };
-
-  const ukOption = (
-    <div className="flex items-center gap-2">
-      <img src={"/uk.svg"} alt="flag" width={24} height={24} />
-      <div className="flex items-center text-white gap-1">
-        <p className="font-semibold">UK</p>
-        <p className="font-semibold text-sm opacity-50">£(GBP)</p>
-      </div>
-    </div>
-  );
-
-  const uaeOption = (
-    <div className="flex items-center gap-2">
-      <img src={"/uae.png"} alt="flag" width={24} height={24} />
-      <div className="flex items-center text-white gap-1">
-        <p className="font-semibold">UAE</p>
-        <p className="font-semibold text-sm opacity-50">(AED)</p>
-      </div>
-    </div>
-  );
-  
-  const options = [ukOption, uaeOption];
 
   return (
     <div>
@@ -91,7 +68,20 @@ export default function CustomDropdown() {
         endIcon={<KeyboardArrowDownIcon />}
         style={{ backgroundColor: "#393939" }}
       >
-        {options[selected]}
+        <div className="flex items-center gap-2">
+          <img
+            src={selectedCountry?.image}
+            alt="flag"
+            width={24}
+            height={24}
+          />
+          <div className="flex items-center text-white gap-1">
+            <p className="font-semibold">{selectedCountry?.name}</p>
+            <p className="font-semibold text-sm opacity-50">
+              {selectedCountry?.currency}
+            </p>
+          </div>
+        </div>
       </Button>
       <StyledMenu
         id="demo-customized-menu"
@@ -102,10 +92,23 @@ export default function CustomDropdown() {
         open={open}
         onClose={() => handleClose(-1)}
       >
-        {options?.map((option, i) => (
-            <MenuItem key={i} onClick={() => handleClose(i)} disableRipple selected={i === selected}>
-                {option}
-            </MenuItem>
+        {options?.map((option) => (
+          <MenuItem
+            key={option.code}
+            onClick={() => handleClose(option)}
+            disableRipple
+            selected={option === selectedCountry}
+          >
+            <div className="flex items-center gap-2">
+              <img src={option?.image} alt="flag" width={24} height={24} />
+              <div className="flex items-center text-white gap-1">
+                <p className="font-semibold">{option?.name}</p>
+                <p className="font-semibold text-sm opacity-50">
+                  {option?.currency}
+                </p>
+              </div>
+            </div>
+          </MenuItem>
         ))}
         {/* <Divider sx={{ my: 0.5 }} /> */}
         {/* <MenuItem onClick={handleClose} disableRipple>

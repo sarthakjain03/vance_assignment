@@ -23,7 +23,7 @@ const Dashboard = () => {
                 <p className="text-white text-4xl text-center">
                     Rate alert dashboard
                 </p>
-                <HistoryCard />
+                <HistoryCard userID={user?.uid ?? null} />
             </div>
             <div className="flex flex-col justify-center items-center gap-12 w-full">
                 <div className="flex justify-between items-center w-full">
