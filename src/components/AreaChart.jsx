@@ -56,6 +56,9 @@ function AreaChart({
         tickAmount: 5,
         labels: {
           show: showYaxisLabels,
+          formatter: (value) => {
+            return value.toFixed(2);
+          },
           style: {
             fontWeight: 500,
             fontSize: '14px',
