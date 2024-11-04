@@ -17,15 +17,15 @@ const AlertCard = ({ name, rate, date, country, code, flag }) => {
             </div>
         </div>
         <div className='flex gap-2'>
-            <div className='bg-[#333333] rounded-md px-2 pb-[0.125rem] h-fit font-semibold text-xl text-white'>
+            <div className='bg-[#333333] rounded-md px-2 py-[0.125rem] h-fit font-semibold text-xl text-white'>
                 12
             </div>
             <p className='text-[#757575] opacity-50 font-semibold text-xl'>/</p>
-            <div className='bg-[#333333] rounded-md px-2 pb-[0.125rem] h-fit font-semibold text-xl text-white'>
+            <div className='bg-[#333333] rounded-md px-2 py-[0.125rem] h-fit font-semibold text-xl text-white'>
                 10
             </div>
             <p className='text-[#757575] opacity-50 font-semibold text-xl'>/</p>
-            <div className='bg-[#333333] rounded-md px-2 pb-[0.125rem] h-fit font-semibold text-xl text-white'>
+            <div className='bg-[#333333] rounded-md px-2 py-[0.125rem] h-fit font-semibold text-xl text-white'>
                 24
             </div>
         </div>
