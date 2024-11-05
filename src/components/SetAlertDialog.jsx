@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Dialog, TextField, DialogContent } from "@mui/material";
+import { Dialog, TextField, DialogContent, CircularProgress } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import { useFormik } from "formik";
 import * as yup from "yup";
@@ -33,7 +33,7 @@ const CustomTextField = styled(TextField)({
   },
 });
 
-const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry }) => {
+const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry, updateAlerts }) => {
   const [submitting, setSubmitting] = useState(false);
 
   const formik = useFormik({
@@ -61,6 +61,7 @@ const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry }) => {
           alerts: arrayUnion(data)
         });
         onClose();
+        updateAlerts(data);
         alert("Rate alert set successfully!");
       } catch (error) {
         console.error("Error saving data:", error);
@@ -128,27 +129,31 @@ const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry }) => {
                 />
               </div>
               <div className="flex flex-col justify-center items-center gap-2 w-full">
-                <button
-                  type="submit"
-                  className="bg-primary px-5 py-3 flex justify-center items-center gap-2 rounded-full text-[#0B0B0B] w-full"
-                  onClick={() => {}}
-                  disabled={submitting}
-                >
-                  <p className="font-semibold">Set Alert</p>
-                  <div
-                    className="rounded-sm bg-black px-1 pb-1 font-medium text-[#81EBAB]"
-                    style={{ lineHeight: "1" }}
-                  >
-                    +
-                  </div>
-                </button>
-                <button
-                  onClick={onClose}
-                  disabled={submitting}
-                  className="font-semibold text-sm text-white/50"
-                >
-                  Cancel
-                </button>
+                {submitting ? <CircularProgress /> : (
+                  <>
+                    <button
+                      type="submit"
+                      className="bg-primary px-5 py-3 flex justify-center items-center gap-2 rounded-full text-[#0B0B0B] w-full"
+                      onClick={() => {}}
+                      disabled={submitting}
+                    >
+                      <p className="font-semibold">Set Alert</p>
+                      <div
+                        className="rounded-sm bg-black px-1 pb-1 font-medium text-[#81EBAB]"
+                        style={{ lineHeight: "1" }}
+                      >
+                        +
+                      </div>
+                    </button>
+                    <button
+                      onClick={onClose}
+                      disabled={submitting}
+                      className="font-semibold text-sm text-white/50"
+                    >
+                      Cancel
+                    </button>
+                  </>
+                )}
               </div>
             </div>
           </form>

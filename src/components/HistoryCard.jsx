@@ -11,7 +11,7 @@ const options = [
   { image: "/uae.png", name: "UAE", currency: "(AED)", code: "AED" },
 ];
 
-const HistoryCard = ({ userID }) => {
+const HistoryCard = ({ userID, updateAlerts }) => {
   const [selectedCountry, setSelectedCountry] = useState(options[0]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -68,7 +68,7 @@ const HistoryCard = ({ userID }) => {
           </div>
       </div>
       {isDialogOpen && (
-        <SetAlertDialog userID={userID} isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} selectedCountry={selectedCountry} />
+        <SetAlertDialog userID={userID} isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)} selectedCountry={selectedCountry} updateAlerts={updateAlerts} />
       )}
     </>
   )
