@@ -2,13 +2,37 @@ import { KeyboardArrowLeft, KeyboardArrowRight } from "@mui/icons-material"
 import AlertCard from "../components/AlertCard"
 import HistoryCard from "../components/HistoryCard"
 import { useAuth } from "../contexts/AuthContext"
+import { useEffect, useState } from "react"
+import { firestore } from "../utils/firebaseConfig"
+import { doc, getDoc } from "firebase/firestore"
 
 const Dashboard = () => {
     const { signout, user } = useAuth();
+    const [allPreviousAlerts, setAllPreviousAlerts] = useState([]);
+
+    const getUserAlerts = async (userId) => {
+        const docRef = doc(firestore, "users", userId);
+        try {
+            const docSnap = await getDoc(docRef);
+            if(docSnap.exists()){
+                console.log(docSnap.data());
+            } else {
+                console.log("No such document found.");
+            }
+        } catch (err) {
+            console.log(err);
+        }
+    };
 
     const handleSignout = async () => {
         await signout();
     }
+
+    useEffect(() => {
+        if(user?.uid) {
+            getUserAlerts(user.uid);
+        }
+    }, [user])
 
   return (
     <div className="bg-black py-12 flex justify-center min-h-screen">
@@ -52,7 +76,7 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className="flex flex-col w-full">
-                    <AlertCard name="Name" rate={84} date={""} code={`£(GBP)`} country="UK" flag={"/uk.svg"} />
+                    <AlertCard name="Name" rate={84} date={""} currency={`£(GBP)`} country="UK" flag={"/uk.svg"} />
                 </div>
             </div>
         </div>

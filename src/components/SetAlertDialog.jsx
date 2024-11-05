@@ -52,6 +52,8 @@ const SetAlertDialog = ({ isOpen, onClose, userID, selectedCountry }) => {
         rateValue: Number(values.alertValue),
         setDate: formatDate(new Date().toDateString()),
         country: selectedCountry?.name,
+        currency: selectedCountry?.currency,
+        code: selectedCountry?.code
       };
       try {
         const docRef = doc(firestore, "users", userID);

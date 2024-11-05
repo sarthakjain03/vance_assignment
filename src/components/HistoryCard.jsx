@@ -11,12 +11,6 @@ const options = [
   { image: "/uae.png", name: "UAE", currency: "(AED)", code: "AED" },
 ];
 
-const tempChartData = [
-  {name: 'UK (GBP)', data: [40, 50, 70, 80, 100, 120]}
-];
-
-const tempXAxisLabels = ['1Y', '2Y', '3Y', '4Y', '5Y', '6Y'];
-
 const HistoryCard = ({ userID }) => {
   const [selectedCountry, setSelectedCountry] = useState(options[0]);
   const [isDialogOpen, setIsDialogOpen] = useState(false);
