@@ -1,9 +1,10 @@
 import React from 'react'
-import { Apple } from '@mui/icons-material'
+import SlideTabs from '../components/SlideTabs'
 
 const LandingPage = () => {
+
   return (
-    <div className='flex flex-col gap-9 justify-center items-center min-h-screen py-10'>
+    <div id='curr_conv' className='flex flex-col gap-9 justify-center items-center min-h-screen py-10'>
       <div className='flex flex-col justify-center items-center gap-5'>
         <h1 className='font-bold text-5xl'>Send money to India at Google rates.</h1>
         <p className='text-gray-600 font-medium text-lg'>
@@ -31,6 +32,9 @@ const LandingPage = () => {
         <img src='/image537.svg' width={400} className='absolute top-8 left-44' />
         <img src='/screen1.svg' width={183} className='absolute top-10 left-[14.2rem]' />
         <div className='absolute -bottom-52 w-full h-1/3 bg-gradient-to-t from-white'></div>
+        <div className='absolute bottom-0 left-[9.5rem]'>
+          <SlideTabs />
+        </div>
       </div>
     </div>
   )
